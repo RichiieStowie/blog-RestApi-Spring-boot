@@ -1,6 +1,7 @@
 package com.example.blogapi.models;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ public class User extends BaseModel{
     private String password;
     private String username;
     private Boolean deleteStatus;
+    @JsonIgnore
     @OneToOne
     private Favorites favorites;
 }

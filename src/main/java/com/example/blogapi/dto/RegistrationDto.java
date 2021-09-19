@@ -1,12 +1,11 @@
 package com.example.blogapi.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 @Data
 public class RegistrationDto {
     @NotNull

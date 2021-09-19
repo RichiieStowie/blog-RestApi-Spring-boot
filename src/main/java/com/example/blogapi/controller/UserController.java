@@ -58,30 +58,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/posts/like-Post")
-    public  ResponseEntity<String> likeUnlikeAPost(@RequestParam("userId")long userId,@RequestParam("postId")long postId){
-        Boolean status= likeService.likeOrUnlikeAPost(postId, userId);
-        HttpHeaders headers = new HttpHeaders();
-        if(status){
-            headers.add("message","Success");
-            return new ResponseEntity<>("Post successfully liked",headers, HttpStatus.CREATED);
-        }else{
-            headers.add("message","success");
-            return new ResponseEntity<>(headers,HttpStatus.NO_CONTENT);
-        }
-    }
-    @PostMapping("/posts/comments/like-Comment")
-    public  ResponseEntity<String> likeUnlikeAComment(@RequestParam("userId")long userId, @RequestParam("commentId")long commentId){
-        Boolean status= likeService.likeOrUnlikeAComment(userId, commentId);
-        HttpHeaders headers = new HttpHeaders();
-        if(status){
-            headers.add("message","Success");
-            return new ResponseEntity<>("Comment successfully liked",headers, HttpStatus.CREATED);
-        }else{
-            headers.add("message","success");
-            return new ResponseEntity<>(headers,HttpStatus.NO_CONTENT);
-        }
-    }
+
 
 
     @DeleteMapping("/favorites/posts")
@@ -104,7 +81,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete-user")
     public ResponseEntity<String> deleteUserAccount(@RequestBody UserDto userDto) throws InterruptedException {
         userService.deleteUser(userDto.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

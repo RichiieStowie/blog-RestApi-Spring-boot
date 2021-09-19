@@ -6,6 +6,8 @@ import com.example.blogapi.exception.RegistrationException;
 import com.example.blogapi.models.User;
 import com.example.blogapi.repository.UserRepository;
 import com.example.blogapi.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,6 +22,8 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -37,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addNewUser(RegistrationDto registrationDto) {
+    public User addNewUser(RegistrationDto registrationDto) {
        User user =new User();
         Optional<User>user1 = userRepository.findUserByEmail(registrationDto.getEmail());
         if(user1.isPresent()){
@@ -54,8 +58,8 @@ public class UserServiceImpl implements UserService {
        user.setDateCreated(localDate);
        user.setTimeCreated(localTime);
        user.setLocalDateTime(localDateTime);
-
-        userRepository.save(user);
+       log.info(user.getUsername()+" is saved");
+        return userRepository.save(user);
     }
 
     @Override
@@ -70,17 +74,13 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Scheduled(fixedDelay= 1000000000L)
-    public void deleteScheduler(){
-    }
+
 
     @Override
     public void deleteUser(long userId) throws InterruptedException {
         User user = userRepository.getById(userId);
         user.setDeleteStatus(true);
         userRepository.save(user);
-     deleteScheduler();
-     Thread.sleep(30000);
      log.info("Deleting user");
      User user1= userRepository.getById(userId);
      if(user1.getDeleteStatus()){

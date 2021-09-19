@@ -6,7 +6,7 @@ import com.example.blogapi.models.Post;
 import java.util.List;
 
 public interface PostService {
-    void createNewPost(String postBody,Long id);
+    Post createNewPost(String postBody,Long id);
     List<Post> displayAllPost();
     List<Post> displaySearchedPosts(String keyword);
 

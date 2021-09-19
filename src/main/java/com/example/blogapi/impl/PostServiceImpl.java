@@ -27,7 +27,7 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public void createNewPost(String postBody, Long id) {
+    public Post createNewPost(String postBody, Long id) {
         Post post = new Post();
         LocalDate localDate=LocalDate.now();
         LocalDateTime localDateTime= LocalDateTime.now();
@@ -41,7 +41,7 @@ public class PostServiceImpl implements PostService {
         post.setLocalDateTime(localDateTime);
         post.setTimeCreated(localTime);
         post.setUser(user);
-        postRepository.save(post);
+        return postRepository.save(post);
 
     }
 
