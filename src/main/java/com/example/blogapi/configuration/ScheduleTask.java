@@ -20,10 +20,6 @@ public class ScheduleTask {
     @Scheduled(initialDelay = 5000L,fixedDelay= 1000000L)
     public void deleteScheduler(){
         List<User> users= userRepository.findUsersByDeleteStatus(true);
-        if(users.size()==0){
-            throw new UserNotFoundException("USER NOT FOUND");
-
-        }
         userRepository.deleteAll(users);
     }
 }
